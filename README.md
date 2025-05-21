@@ -1,1 +1,1 @@
-Orientação para a equipe trabalhar seguindo os passos a passos
+Orientação para a equipe trabalhar seguindo os passo a passo

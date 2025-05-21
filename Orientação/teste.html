@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orientação</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #2c3e50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .status-pendente {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .status-andamento {
+            color: #f39c12;
+            font-weight: bold;
+        }
+        .status-concluido {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        .form-task {
+            margin-top: 30px;
+            padding: 20px;
+            background: #ecf0f1;
+            border-radius: 8px;
+        }
+        .form-task input, .form-task select, .form-task textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .form-task button {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-task button:hover {
+            background-color: #1a252f;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Orientação </h1>
+    </header>
+    <main>
+        <h2>Lista de Orientação</h2>
+        <table id="tasks-table">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Descrição</th>
+                    <th>Responsável</th>
+                    <th>Prioridade</th>
+                    <th>Status</th>
+                    <th>Prazo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Reunião com a Equipe</td>
+                    <td>Apresentar proposta do projeto </td>
+                    <td>Nicolas</td>
+                    <td>Alta</td>
+                    <td class="status-andamento">Em Andamento</td>
+                    <td>15/05/2024</td>
+                </tr>
+                <tr>
+                    <td>Relatório do Mes</td>
+                    <td>Terminar o projeto</td>
+                    <td>Brenda Vieira</td>
+                    <td>Média</td>
+                    <td class="status-pendente">Pendente</td>
+                    <td>20/05/2024</td>
+                </tr>
+                <tr>
+                    <td>Atualizando o sistema</td>
+                    <td>Versao 1.1</td>
+                    <td>Moises Silveiro</td>
+                    <td>Alta</td>
+                    <td class="status-concluido">Concluído</td>
+                    <td>10/05/2024</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="form-task">
+            <h2>Adicionar Nova Orientação</h2>
+            <form id="task-form">
+                <label for="titulo">Título:</label>
+                <input type="text" id="titulo" name="titulo" required>
+
+                <label for="descricao">Descrição:</label>
+                <textarea id="descricao" name="descricao" required></textarea>
+
+                <label for="responsavel">Responsável:</label>
+                <input type="text" id="responsavel" name="responsavel" required>
+
+                <label for="prioridade">Prioridade:</label>
+                <select id="prioridade" name="prioridade" required>
+                    <option value="Baixa">Baixa</option>
+                    <option value="Média">Média</option>
+                    <option value="Alta">Alta</option>
+                </select>
+
+                <label for="status">Status:</label>
+                <select id="status" name="status" required>
+                    <option value="Pendente">Pendente</option>
+                    <option value="Em Andamento">Em Andamento</option>
+                    <option value="Concluído">Concluído</option>
+                </select>
+
+                <label for="prazo">Prazo:</label>
+                <input type="date" id="prazo" name="prazo" required>
+
+                <button type="submit">Adicionar Orientação</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('task-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const titulo = document.getElementById('titulo').value;
+            const descricao = document.getElementById('descricao').value;
+            const responsavel = document.getElementById('responsavel').value;
+            const prioridade = document.getElementById('prioridade').value;
+            const status = document.getElementById('status').value;
+            const prazo = document.getElementById('prazo').value;
+            
+            const table = document.getElementById('tasks-table').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+            
+            newRow.innerHTML = `
+                <td>${titulo}</td>
+                <td>${descricao}</td>
+                <td>${responsavel}</td>
+                <td>${prioridade}</td>
+                <td class="status-${status.toLowerCase().replace(' ', '-')}">${status}</td>
+                <td>${new Date(prazo).toLocaleDateString('pt-BR')}</td>
+            `;
+            
+            document.getElementById('task-form').reset();
+        });
+    </script>
+</body>
+</html>
